@@ -20,7 +20,7 @@ function Services() {
                         </div>
                         <div className="a-b-text">
                             <h2>physical fitness</h2>
-                            <p>Build your physical fitness wiht the </p>
+                            <p> Unlocking your body's potential and boosting your mood, energy, and overall well-being.</p>
                         </div>
                     </div>
                     <div className="a-box activator">
@@ -29,7 +29,7 @@ function Services() {
                         </div>
                         <div className="a-b-text">
                             <h2>body building</h2>
-                            <p>Build your physical fitness wiht the </p>
+                            <p>build your dream physique to be able to unleash your inner strength  and get seious about muscle gain</p>
                         </div>
                     </div>
                     <div className="a-box">
@@ -38,7 +38,7 @@ function Services() {
                         </div>
                         <div className="a-b-text">
                             <h2>wellness training</h2>
-                            <p>Build your physical fitness wiht the </p>
+                            <p>go beyond the workout. our wellness training programs empower you to live a healthier, happier life and unlock your full potential </p>
                         </div>
                     </div>
                     <div className="a-box">
@@ -47,7 +47,7 @@ function Services() {
                         </div>
                         <div className="a-b-text">
                             <h2>gaming centre</h2>
-                            <p>Build your physical fitness wiht the </p>
+                            <p>test your reflexes in our on-site gaming center. the perfect way to balance your workout routine.</p>
                         </div>
                     </div>
                     <div className="a-box">
@@ -56,7 +56,7 @@ function Services() {
                         </div>
                         <div className="a-b-text">
                             <h2>dance</h2>
-                            <p>Build your physical fitness wiht the </p>
+                            <p>Want to get fit and have fun? don't miss out on our dance fitness classes! "Move your body, feel the rhythm." </p>
                         </div>
                     </div>
                     <div className="a-box">
@@ -65,7 +65,7 @@ function Services() {
                         </div>
                         <div className="a-b-text">
                             <h2>yoga</h2>
-                            <p>Build your physical fitness wiht the </p>
+                            <p>strecth, strengthen, find your center, and find your flow. "Yoga is not about pose, it's about the journey within" </p>
                         </div>
                     </div>
                     <div className="a-box">
@@ -74,7 +74,7 @@ function Services() {
                         </div>
                         <div className="a-b-text">
                             <h2>Consultancy</h2>
-                            <p>Build your physical fitness wiht the </p>
+                            <p>not sure where to start? our fitness consultants can create a personalized plan to reach your goals. </p>
                         </div>
                     </div>
                 </div>

@@ -264,17 +264,17 @@ nav .menu-btn,
 
 .a-container{
     display: flex;
-    align-content: center;
+    align-items: center;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 50px;
+    gap: 30px;
 }
 
 .a-box{
-    flex: 0 0 30%;
+    flex: 0 0 31%;
     background-color: #181717;
-    width: 391px;
-    height: 420px;
+    width: 100%;
+    height: 410px;
     padding: 40px;
     border-radius: 5px;
     overflow: hidden;
@@ -282,7 +282,7 @@ nav .menu-btn,
     position: relative;
 }
 .activator {
-  background-color: #ff6600;
+  background-color: #ff6600 !important;
 }
 .a-b-img-added {
   background-color: #fff;
@@ -319,8 +319,7 @@ nav .menu-btn,
     width: 100%;
     height: auto;
     display:flex;
-    /* align-items: center;
-    text-align: center; */
+
     flex-direction: column;
 }
 .a-b-text h2{
@@ -329,12 +328,14 @@ nav .menu-btn,
     font-family: "Bebas Neue", sans-serif; 
     color: #fff;
     text-transform: uppercase;
+    margin-bottom: 20px;
 }
 .a-b-text p{
     font-size: 24px;
     font-family: "Satoshi", sans-serif;
     font-weight: 400;
     color: #fff;
+    text-transform: capitalize;
 }
 
 
@@ -343,7 +344,7 @@ nav .menu-btn,
 	width:100%;
 	height: auto;
 	box-sizing: border-box;
-	padding: 100px 0px 30px;
+	padding: 100px 0px 50px;
 	position: relative;
 }
 .about-container {
@@ -381,7 +382,7 @@ nav .menu-btn,
 .about-text .about-btn {
    text-decoration: none;
   text-transform: capitalize;
-  font-size: 28px;
+  font-size: 20px;
   font-family: 'Satoshi', sans-serif;
   font-weight: 700;
   color: #fff;
@@ -390,6 +391,7 @@ nav .menu-btn,
   border-radius: 5px;
   width: 100%;
   margin-bottom: 20px;
+  cursor: pointer;
 }
 .about-text .about-btn:hover{
   	background-color: transparent;
@@ -419,7 +421,7 @@ nav .menu-btn,
   background-image: url('./assets/carryingdumbell.png');
   position: relative;
   z-index: 0;
-  padding: 150px 0 40px;
+  padding: 150px 0 70px;
 }
 
 #choice::before{
@@ -447,6 +449,7 @@ nav .menu-btn,
   font-family: "Bebas Neue", sans-serif;
   text-transform: uppercase;
   color: #fff;
+  margin-bottom: 20px;
 }
 .choice--container span,
 .testimonial--heading span,
@@ -485,7 +488,7 @@ nav .menu-btn,
 
 /* MOMENT */
 #moment {
-  padding: 20px 0;
+  padding: 60px 0 120px;
   background-color: #fff;
 }
 .moment-container {
@@ -521,6 +524,7 @@ nav .menu-btn,
   text-transform: uppercase;
   color: #000;
   text-align: center;
+  margin-bottom: 20px;
 }
 .moment-heading span {
   color: #ff6600;
@@ -529,7 +533,7 @@ nav .menu-btn,
 /* PRICING PLAN SECTION */
 #pricing {
   background-color: #000;
-  padding: 20px 0;
+  padding: 100px 0;
 }
 .pricing--heading {
   font-family: "Bebas Neue", sans-serif;
@@ -539,15 +543,29 @@ nav .menu-btn,
   text-transform: uppercase;
   text-align: center;
   color: #fff;
+  margin-bottom: 20px;
 }
 .pricing--heading span {
   color: #ff6600;
 }
-
+.tab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tab button {
+  font-size: 24px;
+  font-weight: 400;
+  font-family: "Satoshi", sans-serif;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 30px;
+  background-color: #181717;
+}
 
 /* TRAINER SECTION */
 #trainers {
-  padding: 50px 0;
+  padding: 90px 0;
   background-color: #fff;
 }
 .trainer--heading {
@@ -559,6 +577,7 @@ nav .menu-btn,
   text-transform: uppercase;
   color: #000;
   text-align: center;
+  margin-bottom: 20px;
 }
 .trainer--heading span {
   color: #ff6600;
@@ -604,7 +623,7 @@ nav .menu-btn,
   background-position: center;
   position: relative;
   z-index: 0;
-  padding: 50px 0;
+  padding: 95px 0;
 }
 .testimonial--heading {
   font-family: "Bebas Neue", sans-serif;
@@ -615,6 +634,7 @@ nav .menu-btn,
   text-transform: uppercase;
   color: #000;
   text-align: center;
+  margin-bottom: 20px;
 }
 .testimonial--heading span {
   color: #ff6600;
@@ -630,7 +650,7 @@ nav .menu-btn,
   flex: 0 0 31%;
   background-color: #fff;
   width: 400px;
-  height: 363px;
+  height: 310px;
   padding: 30px;
   border-radius: 10px;
   overflow: hidden;
@@ -671,7 +691,6 @@ nav .menu-btn,
 }
 .stars {
   display: flex;
-  flex-direction: column;
   align-items: center;
   gap: 5px;
   color: #ffc325;
@@ -804,6 +823,7 @@ nav .menu-btn,
 }
 .acsd {
   margin-top: 20px;
+  color: #ff6600;
 }
 
 .footer-container {

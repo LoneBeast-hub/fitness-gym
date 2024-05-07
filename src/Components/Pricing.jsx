@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import PricingOptions from "./PricingOptions";
+// import PricingOptions from "./PricingOptions";
 
 const Pricing = () => {
     const [pricingOption, setPricingOption] = useState("REGULAR");
@@ -80,13 +80,24 @@ const Pricing = () => {
     return ( 
         <div id="pricing">
             <div className="container">
-                <h1 className="pricing--heading u-margin-bottom-normal"> membership   <span> plans </span></h1>
+                <h1 className="pricing--heading u-margin-bottom-normal"> membership  <span> plans </span></h1>
 
-                <button onClick={() => handleOptionChange("DAILY")}>DAILY</button>
-                <button onClick={() => handleOptionChange("MONTHLY")}>MONTHLY</button>
-                <button onClick={() => handleOptionChange("YEARLY")}>YEARLY</button>
+                 <div className="tab u-margin-bottom-normal">
+                    <button onClick={() => handleOptionChange("DAILY")} className="activator">DAILY</button>
+                    <button onClick={() => handleOptionChange("MONTHLY")}>MONTHLY</button>
+                    <button onClick={() => handleOptionChange("YEARLY")}>YEARLY</button>
+                </div>
 
-                <PricingOptions pricingOptions={pricingOptions.filter((option) => option.type === pricingOption)}/>
+                <pricingOptions pricingOptions={pricingOptions.filter((option) => option.type === pricingOption)}/>
+
+                <div className="pricing-container">
+                    {pricingOptions.map((option, index) => {
+                        <div key={index}>
+                            <h2>{option.type}</h2>
+                            <p>{option.price}</p>
+                        </div>
+                    })}
+                </div>
             </div>
         </div>
     );

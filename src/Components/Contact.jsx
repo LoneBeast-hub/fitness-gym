@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import image from "../assets/woman.png";
 
 function Contact() {
@@ -26,9 +27,9 @@ function Contact() {
                 />
                 <textarea placeholder="Write here......"></textarea>
 
-                <a className="contact-btn" href="#" rel="noreferrer">
+                <Link className="contact-btn" to="#" rel="noreferrer">
                 submit
-                </a>
+                </Link>
             </form>
             </div>
             <div className="contact-image">

@@ -1,4 +1,6 @@
 import React from "react"
+import { Link } from "react-router-dom";
+
 
 function Header() {
     return (
@@ -8,7 +10,7 @@ function Header() {
                     <div className="header-heading">
                         <h2>smash your <span>fitness </span>
                         goals</h2>
-                        <a href="#" className="btn">Join Now</a>
+                        <Link to="#" className="btn">Join Now</Link>
                     </div>
 
 

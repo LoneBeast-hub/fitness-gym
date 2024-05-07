@@ -22,13 +22,13 @@ function footer() {
                 visit the gym
               </h2>
               
-              <p className="footer__paragraph">Email Address</p>
+              <p className="footer__paragraph acsd">Email Address</p>
               <a href="goodnessgfc24@gmail.com" target="_blank" className=" u-margin-bottom-small footer__links " rel="noreferrer">goodnessgfc24@gmail.com</a>
               <p class="footer__paragraph acsd">
                 Phone no.
               </p>
               <span className="footer__paragraph u-margin-bottom-small">07063278712</span>
-              <span class="footer__paragraph">
+              <span class="footer__paragraph acsd">
                 Address:
               </span>
                 <address className="footer__paragraph"> No. 25 Osara Road, Gbonogun, Obantoko, Abeokuta</address>
