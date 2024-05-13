@@ -65,7 +65,7 @@ function Services() {
                         </div>
                         <div className="a-b-text">
                             <h2>yoga</h2>
-                            <p>strecth, strengthen, find your center, and find your flow. "Yoga is not about pose, it's about the journey within" </p>
+                            <p>stretch, strengthen, find your center, and find your flow. "Yoga is not about pose, it's about the journey within" </p>
                         </div>
                     </div>
                     <div className="a-box">

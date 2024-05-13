@@ -560,8 +560,13 @@ nav .menu-btn,
   color: #fff;
   border-radius: 5px;
   padding: 10px 30px;
-  background-color: #181717;
 }
+.pricing-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+
 
 /* TRAINER SECTION */
 #trainers {

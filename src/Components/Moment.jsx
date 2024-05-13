@@ -21,4 +21,4 @@ function Moment() {
     )
 }
 
-export default Moment
+export default Moment;

@@ -2,10 +2,16 @@
 module.exports = {
   content: [
     './public/index.html',
-    "./src/**/*.{html,js}"
+    "./src/**/*.{html,js,jsx}"
   ],
     theme: {
-    extend: {},
+    extend: {
+      backgroundColor: {
+        'text-heading': '#ff6600',
+        'backgroud-color': '#181717',
+        'light-gray': '#777777'
+      },
+    },
   },
   plugins: [],
 }

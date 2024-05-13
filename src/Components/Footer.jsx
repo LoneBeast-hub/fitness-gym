@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 function footer() {
   return (
@@ -23,7 +24,7 @@ function footer() {
               </h2>
               
               <p className="footer__paragraph acsd">Email Address</p>
-              <a href="goodnessgfc24@gmail.com" target="_blank" className=" u-margin-bottom-small footer__links " rel="noreferrer">goodnessgfc24@gmail.com</a>
+                <Link to="goodnessgfc24@gmail.com" target="_blank" className=" u-margin-bottom-small footer__links " rel="noreferrer">goodnessgfc24@gmail.com</Link>
               <p class="footer__paragraph acsd">
                 Phone no.
               </p>
@@ -39,18 +40,18 @@ function footer() {
                 follow us on:
               </h2>
               <div class="fa-icon">
-                <a href="https://www.facebook.com/share/ETqPvLiLRsigjarw/?mibextid=qi2Omg" target="_blank" rel="noreferrer">
+                <Link to="https://www.facebook.com/share/ETqPvLiLRsigjarw/?mibextid=qi2Omg" target="_blank" rel="noreferrer">
                   <i class="fab fa-facebook social-icon" aria-hidden="true"></i>
-                </a>
-                <a href="https://x.com/goodnessgfc?t=zEKsEzlA_caXXCVt3c5Y1Q&s=09" target="_blank" rel="noreferrer">
+                </Link>
+                <Link to="https://x.com/goodnessgfc?t=zEKsEzlA_caXXCVt3c5Y1Q&s=09" target="_blank" rel="noreferrer">
                   <i class="fab fa-twitter social-icon" aria-hidden="true" rel="noreferrer"></i>
-                </a>
-                <a href="https://www.instagram.com/goodnessgfc?igsh=bGhkYmE3MHBtaGps" target="_blank" rel="noreferrer">
+                </Link>
+                <Link to="https://www.instagram.com/goodnessgfc?igsh=bGhkYmE3MHBtaGps" target="_blank" rel="noreferrer">
                   <i
                     class="fab fa-instagram social-icon"
                     aria-hidden="true"
                   ></i>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
