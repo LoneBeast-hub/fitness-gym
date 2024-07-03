@@ -11,6 +11,9 @@ module.exports = {
         'backgroud-color': '#181717',
         'light-gray': '#777777'
       },
+      maxWidth: {
+        486: '486px'
+      }
     },
   },
   plugins: [],

@@ -1,5 +1,4 @@
 import React from "react"
-import { Link } from "react-router-dom";
 
 
 function Header() {
@@ -10,7 +9,7 @@ function Header() {
                     <div className="header-heading">
                         <h2>smash your <span>fitness </span>
                         goals</h2>
-                        <Link to="#" className="btn">Join Now</Link>
+                        <a href='#pricing' className="btn">Join Now</a>
                     </div>
 
 

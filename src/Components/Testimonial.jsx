@@ -11,16 +11,16 @@ function Testimonial () {
                         <div className="profile">
                             <img src={image} alt="" />
 
-                            <zdiv className="profile-detail">
+                            <div className="profile-detail">
                                 <h4>Jane</h4>
                                 <h5>BigFan Corp </h5>
                                     <div className="stars">
-                                        <i class="fas fa-star" aria-hidden="true"></i>
-                                        <i class="fas fa-star" aria-hidden="true"></i>
-                                        <i class="fas fa-star" aria-hidden="true"></i>
-                                        <i class="fas fa-star-half" aria-hidden="true"></i>
+                                        <i className="fas fa-star" aria-hidden="true"></i>
+                                        <i className="fas fa-star" aria-hidden="true"></i>
+                                        <i className="fas fa-star" aria-hidden="true"></i>
+                                        <i className="fas fa-star-half" aria-hidden="true"></i>
                                     </div>
-                            </zdiv>
+                            </div>
                         </div>
                         <div className="reviews-detail">
                            <p>Built muscle, felt amazing! GGFC's program transformed my body & health. Highly recommend!</p>
@@ -34,10 +34,10 @@ function Testimonial () {
                                 <h4>Jane</h4>
                                 <h5>BigFan Corp </h5>
                                     <div className="stars">
-                                        <i class="fas fa-star" aria-hidden="true"></i>
-                                        <i class="fas fa-star" aria-hidden="true"></i>
-                                        <i class="fas fa-star" aria-hidden="true"></i>
-                                        <i class="fas fa-star-half" aria-hidden="true"></i>
+                                        <i className="fas fa-star" aria-hidden="true"></i>
+                                        <i className="fas fa-star" aria-hidden="true"></i>
+                                        <i className="fas fa-star" aria-hidden="true"></i>
+                                        <i className="fas fa-star-half" aria-hidden="true"></i>
                                     </div>
                             </div>
                         </div>
@@ -53,10 +53,10 @@ function Testimonial () {
                                 <h4>Jane</h4>
                                 <h5>BigFan Corp </h5>
                                     <div className="stars">
-                                        <i class="fas fa-star" aria-hidden="true"></i>
-                                        <i class="fas fa-star" aria-hidden="true"></i>
-                                        <i class="fas fa-star" aria-hidden="true"></i>
-                                        <i class="fas fa-star-half" aria-hidden="true"></i>
+                                        <i className="fas fa-star" aria-hidden="true"></i>
+                                        <i className="fas fa-star" aria-hidden="true"></i>
+                                        <i className="fas fa-star" aria-hidden="true"></i>
+                                        <i className="fas fa-star-half" aria-hidden="true"></i>
                                     </div>
                             </div>
                         </div>

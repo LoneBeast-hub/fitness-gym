@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import image from "../assets/about.png";
 
 function About() {
@@ -17,7 +16,7 @@ function About() {
 
                         <p className="u-margin-bottom-medium">Our Passionate and certified trainers create personalized programs to help you achieve your fitness goals, whether you're a beginner or a seasoned athlete. Let our experts guide you on your fitness journey!</p>
 
-                        <Link to="/Subscription" className="about-btn">Get started</Link>
+                        <a href="#pricing" className="about-btn">Get started</a>
                     </div>
                 </div>
             </div>

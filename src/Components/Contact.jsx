@@ -9,7 +9,7 @@ function Contact() {
         <h1 className="contact--heading u-margin-bottom-medium">
           <span>contact </span> us
         </h1>
-        <div class="contact--container">
+        <div classsName="contact--container">
             <div className="contact-form">
             <form>
                 <p className="u-margin-bottom-small">Send us a message</p>

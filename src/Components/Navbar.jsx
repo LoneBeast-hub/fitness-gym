@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import logo from '../assets/logogfc.png';
-import { Link } from 'react-router-dom';
 
 
 function Navbar() {
@@ -19,11 +18,11 @@ function Navbar() {
         <nav className={nav ? 'nav active' : 'nav'} >
             <div className="container">
                 <div className="navbar-content">
-                    <Link to="#main" className="logo">
+                    <a href="#main" className="logo">
                         <img src={logo} alt="Gym-logo" className="logo" />
-                    </Link>
+                    </a>
                     <input type="checkbox" className="menu-btn" id="menu-btn" />
-                    <label className="menu-icon" for="menu-btn">
+                    <label className="menu-icon" htmlFor="menu-btn">
                         <span className="nav-icon"></span>
                     </label>
 
