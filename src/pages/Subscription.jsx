@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import { PaystackButton } from 'react-paystack';
 import { useLocation } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import image from '../assets/login-gym.png';
 import visa from '../assets/visa.png';
 import paypal from '../assets/paypal.png';
 import mastercard from '../assets/mastercard.png';
+import axios from "axios";
 
 function Subscription() {
 
@@ -14,6 +15,7 @@ function Subscription() {
     const [amount, setAmount ] = useState("");
     const [name, setName ] = useState("");
     const [number, setNumber] = useState("");
+    const [paymentVerified, setPaymentVerified] = useState(false);
 
     const handleAmountChange = (event) => {
         setAmount(event.target.value);
@@ -30,14 +32,37 @@ function Subscription() {
         publicKey, 
         text: "Make Payment",
         onSuccess: () => {
-            window.location.href = '/signup';
+            // window.location.href = '/verify';
+            verifyPayment();
         },
         onClose: () => alert("Are you sure you want to close?")
     }
 
     const location = useLocation();
     const { state } = location || {};
-    const { price, duration } = state || {};
+    const { id, price, duration } = state || {};
+    const navigate = useNavigate();
+
+    const verifyPayment = async () => {
+        try {
+          const response = await axios.post('https://goodnessgfc.com.ng/gymserver/customer/authenticate/verify_transaction.php', {
+            reference: componentProps.metadata.ref,
+            amount: componentProps.amount,
+            name,
+            email,
+            number,
+            id
+          });
+          if (response.data.message === 'Payment successful, user registered') {
+            setPaymentVerified(true);
+            navigate('/signup', { state: { name, email, number, id } }); // Redirect to registration form
+        } else {
+            setPaymentVerified(false);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
 
     return (
         <div id="subscription">
@@ -59,7 +84,7 @@ function Subscription() {
                         <label htmlFor="amount">Amount (NGN)</label>
                         <select value={amount} placeholder={price} style={{backgroundColor: '#f2f2f2'}} onChange={handleAmountChange} > 
                             <option value={null}>Select Amount</option>
-                            <option value={price} >{price}</option>
+                            <option value={price} >{price} - {id} </option>
                         </select>
                     </div>
 
@@ -83,7 +108,12 @@ function Subscription() {
                         </div>
                     </div> 
 
-                    <PaystackButton className="form-btn" value="Pay with paystack"  {...componentProps}  />
+                    <PaystackButton className="form-btn" value="Pay with paystack"  {...componentProps}   {...paymentVerified? (
+                        <p>Payment successful,  redirecting to registration form...</p>
+                        ) : (
+                        <p>Payment failed, please try again.</p>
+                    )} />
+                  
                        
                 </form>
 

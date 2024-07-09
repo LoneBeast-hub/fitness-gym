@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Subscription from './pages/Subscription';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Verify from './pages/Verify';
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
                         <Route path="/subscription/:id" exact element={<Subscription />} />
                         <Route path="/login" exact element={<Login />} />
                         <Route path="/signup" exact element={<Signup />} />
+                        <Route path="/verify" exact element={<Verify />} />
                     </Routes> 
             )
         } 

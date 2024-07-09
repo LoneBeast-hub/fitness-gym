@@ -1,20 +1,16 @@
 import React, { useState } from 'react';
 import image from '../assets/login-gym.png';
-import Mark from '../assets/mark.png';
 import Modal from '../Components/Modal';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 import { useForm } from 'react-hook-form';
 
 const Signup = () => {
-
+  const navigate = useNavigate();
      //handle form events 
      const { register, handleSubmit, watch, formState: { errors } } = useForm({
         mode: 'onTouched'
       });
-  
-    //   // handle submit button
-    //   const onSubmit = data => alert(JSON.stringify(data));
   
       // handle password eye
       const [passwordEye, setPasswordEye] = useState(false);
@@ -40,19 +36,70 @@ const Signup = () => {
       ]
 
       const [open, setOpen] = useState(false);
+      const [username, setUsername] = useState("");
+      const [email, setEmail] = useState("");
+      const [passwordState, setPasswordState] = useState("");
+      const [tier, setTier] = useState("");
+      const [gender, setGender] = useState("");
+
+      const handleTierChange = (event) => {
+        setTier(event.target.value);
+      }
+
+      const handleGenderChange = (event) => {
+        setGender(event.target.value);
+      }
+
+      // async function signUp() {
+      //   let item = {username, tier, email, gender, passwordState}
+      //   console.warn(item);
+
+      //   let result = await fetch("https://goodnessgfc.com.ng/gymserver/customer/authenticate/register_user.php", {
+      //     method: 'POST',
+      //     body: JSON.stringify(item),
+      //     headers: {
+      //       "Content-Type" : "application/json; charset=utf-8"
+        
+      //     }
+      //   })
+      //   result = await result.json()
+      //   console.warn("result", result)
+      // }
+
+       // handle submit button
+    const onSubmit = async (data) => {
+      let item = { ...data }
+      console.warn(item);
+
+      let result = await fetch("https://goodnessgfc.com.ng/gymserver/customer/authenticate/register_user.php", {
+        method: 'POST',
+        body: JSON.stringify(item),
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        }
+      })
+      result = await result.json()
+      console.warn("result", result)
+
+      if (result.success) {
+        navigate('/signup', { state: { name: data.username, email: data.email, number: '' } });
+      }
+    }
+    
   return (
     <div id="subscription">
         <div className="left-w">
             <h2 className="subscription--heading u-margin-bottom-small">Create an account</h2>
 
-            <form action="" className="form" onSubmit={handleSubmit()} >
+            <form action="" className="form" onSubmit={handleSubmit(onSubmit)} >
                 <div className="r-full-relay">
                     <label htmlFor="text">Username</label>
                     <input 
-                        type="text" 
+                        type="text"
                         placeholder='Enter Username'  
-                        style={{backgroundColor: '#fafafa'}}
-                        {...register("username", {required: 'Username is required' })}  />
+                        value={username}
+                        {...register("username", {required: 'Username is required' })}
+                        onChange={(e) => setUsername(e.target.value)}/>
                     {errors.username && <span className='error'>{errors.username.message}</span>} 
                 </div>
 
@@ -61,13 +108,17 @@ const Signup = () => {
                     <input 
                         type="email" 
                         placeholder='Enter Email Address'  
-                        {...register("email", {required: 'Email address is required' })}  />
+                        value={email}
+                        {...register("email", {required: 'Email address is required' })}  
+                        onChange={(e) => setEmail(e.target.value)} />
                     {errors.email && <span className='error'>{errors.email.message}</span>} 
                 </div>
 
                 <div className="r-full-relay">
                     <label htmlFor="text">Tier</label>
-                    <select className="select">
+                    <select className="select" 
+                    value={tier} onChange={handleTierChange}
+                    >
                       {options.map(option => (
                         <option value={option.value}>{option.label}</option>
                       ))}
@@ -78,11 +129,19 @@ const Signup = () => {
                     <label htmlFor='text'>Gender</label>
                     <div className='gender-input'>
                       <div className="gender-radio">
-                        <input type="radio"  name="gender" value="male" id="male"/>
+                        <input type="radio"  name="gender" 
+                         value="Male" 
+                         checked={gender === "Male"}
+                         onChange={handleGenderChange}
+                        id="male"/>
                         <label htmlFor="male">Male</label>
                       </div>
                       <div className="gender-radio">
-                        <input type="radio"  name="gender" value="female" id="Female" />
+                        <input type="radio"  name="gender" 
+                          value="Female" 
+                          checked={gender === "Female"}
+                          onChange={handleGenderChange}
+                         id="Female" />
                         <label htmlFor="Female">Female</label>
                       </div>
                     </div>
@@ -117,6 +176,7 @@ const Signup = () => {
                   <label htmlFor="password">Confirm Password</label>
                   <input 
                         type={(confirmPasswordEye === false ) ? 'password' : 'text'} 
+                        value={passwordState}
                         placeholder='Confirm your password' 
                         onPaste={(e) => {
                           e.preventDefault()
@@ -125,17 +185,17 @@ const Signup = () => {
                        {...register("confirmPassword", {required: 'Confirm Password is required',
                             validate: (value) => 
                               value === password || "The password do not match",
-                        })}  /> 
+                        })}  
+                          onChange={(e) => setPasswordState(e.target.value)}
+                        /> 
                 <div className='password-eye'>
                     { (confirmPasswordEye === false ) ? <IoMdEye onClick={handleConfirmPasswordClick} /> : <IoMdEyeOff onClick={handleConfirmPasswordClick} /> }
                 </div>
                 {errors.confirmPassword && <span className='error'>{errors.confirmPassword.message}</span>} 
               </div>
 
-                <button type="submit" className="form-btn">
-                    <Link to="">
+                <button className="form-btn">              
                         Sign up
-                    </Link>
                 </button>
 
                 <Modal open={open} onClose={() => setOpen(true)}>
