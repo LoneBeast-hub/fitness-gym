@@ -93,7 +93,7 @@ const Signup = () => {
 
     console.log(result);
 
-    if (result.data.response === true) {
+    if (result.response === true) {
       // setPaymentVerified(true);
       // navigate('/signup', { state: { name, email, number, id } }); // Redirect to registration form
       // sessionStorage.setItem('userid', response?.data);
