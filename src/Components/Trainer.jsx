@@ -1,8 +1,5 @@
 import React from "react";
-import image1 from "../assets/trainer1.png";
-import image2 from "../assets/trainer2.png";
-import image3 from "../assets/trainer3.png";
-import image4 from "../assets/trainer4.png";
+import image4 from "../assets/instructor.jpg";
 
 function Trainer() {
     return (
@@ -12,7 +9,7 @@ function Trainer() {
                     our <span>trainers </span>
                 </h1>
                 <div className="trainer--container">
-                    <div className="trainer--items">
+                    {/* <div className="trainer--items">
                         <img src={image1} alt="Trainer 1" className="trainers--photo u-margin-bottom-small"/>
                         <h2 className="trainer--name">BlueVine</h2>
                         <h4 className="trainer-description">Coach</h4>
@@ -26,11 +23,11 @@ function Trainer() {
                         <img src={image3} alt="Trainer 3" className="trainers--photo u-margin-bottom-small"/>
                         <h2 className="trainer--name">Olayori</h2>
                         <h4 className="trainer-description">Female Fitness Coach</h4>
-                    </div>
+                    </div> */}
                     <div className="trainer--items">
                         <img src={image4} alt="Trainer 4" className="trainers--photo u-margin-bottom-small"/>
-                        <h2 className="trainer--name">Swift Media</h2>
-                        <h4 className="trainer-description" >Director</h4>
+                        <h2 className="trainer--name">Abegunde Aduragbemi</h2>
+                        <h4 className="trainer-description" >Gym Instructor</h4>
                     </div>
                 </div>
             </div>
