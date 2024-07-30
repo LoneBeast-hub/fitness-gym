@@ -1,6 +1,5 @@
-import React from "react";
-import {  Routes, Route, useLocation } from "react-router-dom";
-import { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect, createContext } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import HashLoader from "react-spinners/HashLoader";
 import Home from './pages/Home';
 import Subscription from './pages/Subscription';
@@ -14,13 +13,12 @@ import TodoEditModal from "./Components/todo_edit_modal/todo_edit_modal.componen
 import ConfirmPostNotificationModal from "./Components/confirm_post_notification_modal/confirm_post_notification_modal.component";
 import SuccessModal from "./Components/success_modal/succes_modal.component";
 
-// lod contribution
 export const MyContext = createContext()
 
 function App() {
-    // lod contribution
     const [contextState, setContextState] = useState({
         showTodoDeleteModal: false,
+        currentUser: null,
         showTodoAddModal: false,
         showTodoEditModal: false,
         showDisableMemberModal: false,
@@ -139,50 +137,72 @@ function App() {
             plan: 'Classical - N22k per month'
           }
         ]
-    })
+    });
+
+    // State to track sessionStorage values
+    const [userId, setUserId] = useState(sessionStorage.getItem('userId') || null);
+    const [accessToken, setAccessToken] = useState(sessionStorage.getItem('accessToken') || null);
+
+    // Custom function to update sessionStorage and state
+    const updateSessionStorage = (key, value) => {
+        sessionStorage.setItem(key, value);
+        if (key === 'userId') setUserId(value);
+        if (key === 'accessToken') setAccessToken(value);
+    };
+
+    // useEffect to update currentUser when userId or accessToken changes
+    useEffect(() => {
+        if (userId && accessToken) {
+            setContextState(prevState => ({
+                ...prevState,
+                currentUser: { userId, accessToken }
+            }));
+        } else {
+            setContextState(prevState => ({
+                ...prevState,
+                currentUser: null
+            }));
+        }
+    }, [userId, accessToken]);
 
     const [loading, setLoading] = useState(false);
-        useEffect(() => {
-            setLoading(true);
-            setTimeout(() => {
-                setLoading(false);
-            }, 3000);
-        }, []);
+    useEffect(() => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+        }, 3000);
+    }, []);
 
     const location = useLocation();
     const membersDashboardRoute = '/members_dashboard';
     const adminDashboardRoute = '/admin_dashboard';
     return (
-        <MyContext.Provider value={{contextState, setContextState}}>
+        <MyContext.Provider value={{ contextState, setContextState, updateSessionStorage }}>
             {
-                location.pathname.startsWith(`${membersDashboardRoute}`) || location.pathname.startsWith(`${adminDashboardRoute}`)?
+                location.pathname.startsWith(`${membersDashboardRoute}`) || location.pathname.startsWith(`${adminDashboardRoute}`) ?
                     <>
                         <Layout />
                         {/* todo delete modal */}
-                        {contextState.showTodoDeleteModal? <TodoDeleteModal /> : ''}
+                        {contextState.showTodoDeleteModal ? <TodoDeleteModal /> : ''}
                         {/* todo add modal */}
-                        {contextState.showTodoAddModal? <TodoAddModal /> : ''}
+                        {contextState.showTodoAddModal ? <TodoAddModal /> : ''}
                         {/* todo edit modal */}
-                        {contextState.showTodoEditModal? <TodoEditModal /> : ''}
-                        {/* Send post confirmation modal will enable when working on admin dashboard */}
-                        {/* {contextState.showConfirmPostNotificationModal? <ConfirmPostNotificationModal /> : ''} */}
+                        {contextState.showTodoEditModal ? <TodoEditModal /> : ''}
                         {/* Success Modal */}
-                        {contextState.showSuccessModal? <SuccessModal successMsg={contextState.successMessage} /> : ''}
+                        {contextState.showSuccessModal ? <SuccessModal successMsg={contextState.successMessage} /> : ''}
                     </>
-                :
-                    <div className = "App" > 
-                    {
-                        loading ? ( 
-                            <div style = { { position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} >
-                                <HashLoader 
-                                    color = { "#ff6600" }
-                                    loading = { loading }
-                                    size = { 100 }
-                                    aria-label = "Loading Spinner"
-                                    data-testid = "loader" />
-                            </div>) : (
-
-                        
+                    :
+                    <div className="App">
+                        {
+                            loading ? (
+                                <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
+                                    <HashLoader
+                                        color={"#ff6600"}
+                                        loading={loading}
+                                        size={100}
+                                        aria-label="Loading Spinner"
+                                        data-testid="loader" />
+                                </div>) : (
                                 <Routes>
                                     <Route path="/" exact element={<Home />} />
                                     <Route path="/home" exact element={<Home />} />
@@ -190,9 +210,9 @@ function App() {
                                     <Route path="/subscription/:id" exact element={<Subscription />} />
                                     <Route path="/login" exact element={<Login />} />
                                     <Route path="/signup" exact element={<Signup />} />
-                                </Routes> 
-                        )
-                    } 
+                                </Routes>
+                            )
+                        }
                     </div>
             }
         </MyContext.Provider>

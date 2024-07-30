@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import image from '../assets/login-gym.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 import { useForm } from 'react-hook-form';
+import { MyContext } from '../App';
 
 const Login = () => {
+  const { updateSessionStorage, contextState } = useContext(MyContext);
   const [passwordEye, setPasswordEye] = useState(false);
   const navigate = useNavigate();
 
@@ -34,8 +36,10 @@ const Login = () => {
 
       if (response.response === true) {
         // save session
-        sessionStorage.setItem('userId', response.userid);
-        sessionStorage.setItem('accessToken', response.accessToken);
+        updateSessionStorage('userId', response.userid);
+        updateSessionStorage('accessToken', response.accessToken);
+        // trying the auth from here
+
         // navigate('/signup', { state: { username: data.username } });
       } else {
         console.warn("Login failed");
