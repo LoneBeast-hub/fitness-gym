@@ -1,0 +1,90 @@
+@font-face {
+    font-family: 'MyFont';
+    src: url('./assets/Satoshi-Variable.ttf') format('truetype');
+}
+
+* {
+    line-height: 100%;
+    font-family: 'MyFont', sans-serif;
+}
+
+/* full calendar style */
+:root {
+    --fc-border-color: #E8E8E8;
+    --fc-daygrid-event-dot-width: 5px;
+}
+
+.fc .fc-scrollgrid {
+    border-radius: 0.8rem;
+}
+
+.fc .fc-scrollgrid-section-liquid > td {
+    border-bottom-left-radius: 0.8rem;
+    border-bottom-right-radius: 0.8rem;
+}
+
+/* title (the "month, year") display */
+.fc .fc-toolbar.fc-header-toolbar {
+    font-size: 1.5rem;
+    margin-bottom: 1.3rem;
+    font-weight: 500;
+    color: #8B8B8B;
+}
+
+/* the button display for today, next month and prev month */
+.fc .fc-button-primary {
+    display: none;
+}
+
+/* the calendar weekdays */
+.fc .fc-col-header-cell-cushion {
+    text-transform: uppercase;
+    color: #8B8B8B;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 2rem 0;
+}
+
+/* day number container */
+.fc .fc-daygrid-day-top {
+    flex-direction: row;
+}
+
+/* day number */
+.fc .fc-daygrid-day-number {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: #8B8B8B;
+    padding: 0.7rem;
+}
+
+/* event */
+.fc-h-event {
+    border-left: 2px solid #FF6600;
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 0;
+}
+
+/* full calendar styles for larger screens */
+@media screen and (min-width: 768px) {
+    /* title (the "month, year") display */
+    .fc .fc-toolbar.fc-header-toolbar {
+        font-size: 2.4rem;
+        margin-bottom: 2rem;
+    }
+
+    /* the calendar weekdays */
+    .fc .fc-col-header-cell-cushion {
+        font-size: 1.6rem;
+        padding: 1.4rem 0;
+    }
+
+    /* day number */
+    .fc .fc-daygrid-day-number {
+        font-size: 2.1rem;
+        font-weight: 500;
+        color: #8B8B8B;
+        padding: 1.2rem;
+    }
+}
