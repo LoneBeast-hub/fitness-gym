@@ -9,6 +9,7 @@ const Login = () => {
   const { updateSessionStorage, contextState } = useContext(MyContext);
   const [passwordEye, setPasswordEye] = useState(false);
   const navigate = useNavigate();
+  const membersDashboardRoute = '/members_dashboard';
 
   //handle form events 
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -32,13 +33,33 @@ const Login = () => {
         }
       });
       const response = await result.json();
-      console.log(response);
 
       if (response.response === true) {
         // save session
         updateSessionStorage('userId', response.userid);
         updateSessionStorage('accessToken', response.accessToken);
-        // trying the auth from here
+        // check if userId exist in app
+        if(contextState.currentUser.userId) {
+          // get user profile
+          const userProfileResult = await fetch("https://goodnessgfc.com.ng/gymserver/customer/updateprofile/getuserprofile.php",{
+            method : 'POST',
+            body : JSON.stringify({
+              'userid': contextState.currentUser.userId
+            }),
+            headers : {
+              "Content-Type" : "application/json; charset=utf-8",
+              "Accesstoken": contextState.currentUser.accessToken
+            }
+            
+          });
+          const userProfileResponse = await userProfileResult.json();
+          // check if userId in app matches user id in DB
+          if(contextState.currentUser.userId === userProfileResponse.userprofile.userid) {
+            // give user access to members dashboard
+            navigate(membersDashboardRoute)
+          }
+
+        }
 
         // navigate('/signup', { state: { username: data.username } });
       } else {
