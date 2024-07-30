@@ -33,7 +33,9 @@ const Login = () => {
       console.log(response);
 
       if (response.response === true) {
-        sessionStorage.setItem('loggedin', response);
+        // save session
+        sessionStorage.setItem('userId', response.userid);
+        sessionStorage.setItem('accessToken', response.accessToken);
         // navigate('/signup', { state: { username: data.username } });
       } else {
         console.warn("Login failed");

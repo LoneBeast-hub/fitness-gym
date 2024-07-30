@@ -7,6 +7,12 @@ import Subscription from './pages/Subscription';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Layout from "./Components/layout/layout.component";
+// modal components
+import TodoDeleteModal from "./Components/todo_delete_modal/todo_delete_modal.component";
+import TodoAddModal from "./Components/todo_add_modal/todo_add_modal.component";
+import TodoEditModal from "./Components/todo_edit_modal/todo_edit_modal.component";
+import ConfirmPostNotificationModal from "./Components/confirm_post_notification_modal/confirm_post_notification_modal.component";
+import SuccessModal from "./Components/success_modal/succes_modal.component";
 
 // lod contribution
 export const MyContext = createContext()
@@ -150,7 +156,19 @@ function App() {
         <MyContext.Provider value={{contextState, setContextState}}>
             {
                 location.pathname.startsWith(`${membersDashboardRoute}`) || location.pathname.startsWith(`${adminDashboardRoute}`)?
-                    <Layout />
+                    <>
+                        <Layout />
+                        {/* todo delete modal */}
+                        {contextState.showTodoDeleteModal? <TodoDeleteModal /> : ''}
+                        {/* todo add modal */}
+                        {contextState.showTodoAddModal? <TodoAddModal /> : ''}
+                        {/* todo edit modal */}
+                        {contextState.showTodoEditModal? <TodoEditModal /> : ''}
+                        {/* Send post confirmation modal will enable when working on admin dashboard */}
+                        {/* {contextState.showConfirmPostNotificationModal? <ConfirmPostNotificationModal /> : ''} */}
+                        {/* Success Modal */}
+                        {contextState.showSuccessModal? <SuccessModal successMsg={contextState.successMessage} /> : ''}
+                    </>
                 :
                     <div className = "App" > 
                     {
