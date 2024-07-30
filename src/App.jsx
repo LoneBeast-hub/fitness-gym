@@ -6,7 +6,7 @@ import Home from './pages/Home';
 import Subscription from './pages/Subscription';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-
+import AdminLogin from "./pages/AdminLogin";
 
 function App() {
     const [loading, setLoading] = useState(false);
@@ -37,6 +37,7 @@ function App() {
                         <Route path="/subscription/:id" exact element={<Subscription />} />
                         <Route path="/login" exact element={<Login />} />
                         <Route path="/signup" exact element={<Signup />} />
+                        <Route path="/admin_dashboard" exact element={<AdminLogin />} />
                     </Routes> 
             )
         } 

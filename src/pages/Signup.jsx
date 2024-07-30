@@ -53,26 +53,7 @@ const Signup = () => {
     setGender(event.target.value);
   }
 
-  // async function signUp() {
-  //   let item = {username, tier, email, gender, passwordState}
-  //   console.warn(item);
-
-  //   let result = await fetch("https://goodnessgfc.com.ng/gymserver/customer/authenticate/register_user.php", {
-  //     method: 'POST',
-  //     body: JSON.stringify(item),
-  //     headers: {
-  //       "Content-Type" : "application/json; charset=utf-8"
-
-  //     }
-  //   })
-  //   result = await result.json()
-  //   console.warn("result", result)
-  // }
-
-  // handle submit button
   const onSubmit = async (data) => {
-    // let item = { ...data }
-    // console.warn(item);
 
     const formData = new FormData();
     formData.append("username", username);
@@ -94,17 +75,11 @@ const Signup = () => {
     console.log(result);
 
     if (result.response === true) {
-      // setPaymentVerified(true);
-      // navigate('/signup', { state: { name, email, number, id } }); // Redirect to registration form
-      // sessionStorage.setItem('userid', response?.data);
       window.location.href = '/login';
     } else {
       // setPaymentVerified(false);
     }
 
-    // if (result.success) {
-    //   navigate('/signup', { state: { name: data.username, email: data.email, number: '' } });
-    // }
   }
 
   return (
