@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { MyContext } from '../App';
 
 const Login = () => {
-  const { updateSessionStorage, contextState } = useContext(MyContext);
+  const { updateSessionStorage, contextState, setContextState } = useContext(MyContext);
   const [passwordEye, setPasswordEye] = useState(false);
   const navigate = useNavigate();
   const membersDashboardRoute = '/members_dashboard';
@@ -22,6 +22,8 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     try {
+      console.log("Submitting login form with data:", data);
+  
       const result = await fetch("https://goodnessgfc.com.ng/gymserver/customer/authenticate/login_user.php", {
         method: 'POST',
         body: JSON.stringify({
@@ -32,36 +34,47 @@ const Login = () => {
           "Content-Type": "application/json; charset=utf-8"
         }
       });
+  
       const response = await result.json();
-
+      console.log("Login response:", response);
+  
       if (response.response === true) {
         // save session
         updateSessionStorage('userId', response.userid);
         updateSessionStorage('accessToken', response.accessToken);
-        // check if userId exist in app
-        if(contextState.currentUser.userId) {
-          // get user profile
-          const userProfileResult = await fetch("https://goodnessgfc.com.ng/gymserver/customer/updateprofile/getuserprofile.php",{
-            method : 'POST',
-            body : JSON.stringify({
-              'userid': contextState.currentUser.userId
-            }),
-            headers : {
-              "Content-Type" : "application/json; charset=utf-8",
-              "Accesstoken": contextState.currentUser.accessToken
-            }
-            
-          });
-          const userProfileResponse = await userProfileResult.json();
-          // check if userId in app matches user id in DB
-          if(contextState.currentUser.userId === userProfileResponse.userprofile.userid) {
-            // give user access to members dashboard
-            navigate(membersDashboardRoute)
+  
+        // Update context state with the current user information
+        setContextState(prevState => ({
+          ...prevState,
+          currentUser: {
+            userId: response.userid,
+            accessToken: response.accessToken
           }
-
+        }));
+  
+        // get user profile
+        const userProfileResult = await fetch("https://goodnessgfc.com.ng/gymserver/customer/updateprofile/getuserprofile.php", {
+          method: 'POST',
+          body: JSON.stringify({
+            'userid': response.userid
+          }),
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Accesstoken": response.accessToken
+          }
+        });
+  
+        const userProfileResponse = await userProfileResult.json();
+  
+        // check if userId in app matches user id in DB
+        if (response.userid === userProfileResponse.userprofile.userid) {
+          console.log("User ID matches. Redirecting to members dashboard.");
+          // give user access to members dashboard
+          navigate(membersDashboardRoute);
+        } else {
+          console.warn("Invalid User!");
         }
-
-        // navigate('/signup', { state: { username: data.username } });
+  
       } else {
         console.warn("Login failed");
       }
@@ -69,6 +82,7 @@ const Login = () => {
       console.error("Error:", error);
     }
   }
+  
 
   return (
     <div id="subscription">
