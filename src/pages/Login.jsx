@@ -51,6 +51,8 @@ const Login = () => {
             accessToken: response.accessToken
           }
         }));
+
+        console.log(response.userid, response.accessToken)
   
         // get user profile
         const userProfileResult = await fetch("https://goodnessgfc.com.ng/gymserver/customer/updateprofile/getuserprofile.php", {
@@ -65,6 +67,7 @@ const Login = () => {
         });
   
         const userProfileResponse = await userProfileResult.json();
+        console.log(userProfileResponse)
   
         // check if userId in app matches user id in DB
         if (response.userid === userProfileResponse.userprofile.userid) {
@@ -74,7 +77,6 @@ const Login = () => {
         } else {
           console.warn("Invalid User!");
         }
-  
       } else {
         console.warn("Login failed");
       }

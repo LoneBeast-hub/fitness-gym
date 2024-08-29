@@ -31,27 +31,33 @@ const Layout = () => {
     const [isUserRegistered, setIsUserRegistered] = useState(false);
     const navigate = useNavigate();
 
-    // effect to authenticate valid users
     useEffect(() => {
-        const checkUserValidty = async () => {
-            // check if userId exist in app
-            if(contextState.currentUser) {
-                if(contextState.currentUser.userId) {
+        const checkUserValidity = async () => {
+            try {
+                // check if userId exists in sessionStorage
+                const userId = sessionStorage.getItem('userId');
+                const accessToken = sessionStorage.getItem('accessToken');
+    
+                if (userId) {
                     // get user profile
-                    const userProfileResult = await fetch("https://goodnessgfc.com.ng/gymserver/customer/updateprofile/getuserprofile.php",{
-                    method : 'POST',
-                    body : JSON.stringify({
-                        'userid': contextState.currentUser.userId
-                    }),
-                    headers : {
-                        "Content-Type" : "application/json; charset=utf-8",
-                        "Accesstoken": contextState.currentUser.accessToken
-                    }
-                    
+                    const userProfileResult = await fetch("https://goodnessgfc.com.ng/gymserver/customer/updateprofile/getuserprofile.php", {
+                        method: 'POST',
+                        body: JSON.stringify({ 'userid': userId }),
+                        headers: {
+                            "Content-Type": "application/json; charset=utf-8",
+                            "Accesstoken": accessToken
+                        }
                     });
+    
+                    if (!userProfileResult.ok) {
+                        // handle non-2xx HTTP responses
+                        throw new Error('Failed to fetch user profile');
+                    }
+    
                     const userProfileResponse = await userProfileResult.json();
+    
                     // check if userId in app matches user id in DB
-                    if(contextState.currentUser.userId === userProfileResponse.userprofile.userid) {
+                    if (userId === userProfileResponse.userprofile.userid) {
                         // give user access to members dashboard
                         setIsUserRegistered(true);
                     } else {
@@ -60,16 +66,18 @@ const Layout = () => {
                     }
                 } else {
                     // go to login page
-                    navigate('/login')
+                    navigate('/login');
                 }
-            } else {
-                // go to login page
-                navigate('/login')
+            } catch (error) {
+                console.error('Error checking user validity:', error);
+                // Optionally navigate to the login page on error
+                navigate('/login');
             }
         }
-
-        checkUserValidty();
-    }, [])
+    
+        checkUserValidity();
+    }, []);
+    
 
     return(
         !isUserRegistered?
