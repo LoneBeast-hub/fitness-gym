@@ -11,9 +11,26 @@ import { FaPhoneAlt, FaCalendarCheck } from "react-icons/fa";
 import { Link } from "react-router-dom";
 // css
 import '../../lodstyles.css';
+// hooks
+import { useEffect, useState } from "react";
 
 const MembersSettingsPage = () => {
     const membersDashboardRoute = '/members_dashboard';
+    const [userProfile, setUserProfile] = useState(null)
+
+    useEffect(() => {
+        const getUserProfileFromStorage = () => {
+            const userProfileString = sessionStorage.getItem('userProfile');
+            if(userProfileString) {
+                const userProfileObject = JSON.parse(userProfileString)
+                console.log(userProfileObject)
+                setUserProfile(userProfileObject)
+            }
+        }
+        
+        getUserProfileFromStorage();
+    }, [])
+
     return(
         <div>
             {/* header */}
@@ -31,7 +48,7 @@ const MembersSettingsPage = () => {
                             {/* img */}
                             <img className="w-[60px] h-[60px] md:w-[102px] md:h-[102px] rounded full" src={ProfileImg} alt="profile" />
                             {/* name */}
-                            <p className="text-[1.8rem] md:text-[3.2rem] text-primary-100 font-bold">John Doe</p>
+                            <p className="text-[1.8rem] md:text-[3.2rem] text-primary-100 font-bold">{userProfile? userProfile.fullname : '...'}</p>
                         </div>
                         {/* edit profile button */}
                         <CustomButton AddClassName='h-fit' primaryColored>
@@ -53,7 +70,7 @@ const MembersSettingsPage = () => {
                                 <span className="text-[1.2rem] md:text-[2.4rem] font-medium text-black-100">Name</span>
                             </div>
                             {/* value */}
-                            <p className="font-medium overflow-ellipsis overflow-hidden text-black-100 text-[1.2rem] md:text-[2.4rem]">John Doe</p>
+                            <p className="font-medium overflow-ellipsis overflow-hidden text-black-100 text-[1.2rem] md:text-[2.4rem]">{userProfile? userProfile.fullname : '...'}</p>
                         </div>
                         {/* email */}
                         <div className="py-[1.5rem] overflow-hidden gap-[2rem] rounded-[0.5rem] px-[1.8rem] md:py-[3rem] md:px-[4rem] flex w-full items-center justify-between bg-gray-fa">
@@ -66,7 +83,7 @@ const MembersSettingsPage = () => {
                                 <span className="text-[1.2rem] md:text-[2.4rem] font-medium text-black-100">Email</span>
                             </div>
                             {/* value */}
-                            <p className="font-medium overflow-ellipsis overflow-hidden text-black-100 text-[1.2rem] md:text-[2.4rem]">example@gmail.com</p>
+                            <p className="font-medium overflow-ellipsis overflow-hidden text-black-100 text-[1.2rem] md:text-[2.4rem]">{userProfile? userProfile.email : '...'}</p>
                         </div>
                         {/* Username */}
                         <div className="py-[1.5rem] overflow-hidden gap-[2rem] rounded-[0.5rem] px-[1.8rem] md:py-[3rem] md:px-[4rem] flex w-full items-center justify-between bg-gray-fa">
@@ -79,7 +96,7 @@ const MembersSettingsPage = () => {
                                 <span className="text-[1.2rem] md:text-[2.4rem] font-medium text-black-100">Username</span>
                             </div>
                             {/* value */}
-                            <p className="font-medium overflow-ellipsis overflow-hidden text-black-100 text-[1.2rem] md:text-[2.4rem]">john_doe</p>
+                            <p className="font-medium overflow-ellipsis overflow-hidden text-black-100 text-[1.2rem] md:text-[2.4rem]">{userProfile? userProfile.username : '...'}</p>
                         </div>
                         {/* Phone Number */}
                         <div className="py-[1.5rem] overflow-hidden gap-[2rem] rounded-[0.5rem] px-[1.8rem] md:py-[3rem] md:px-[4rem] flex w-full items-center justify-between bg-gray-fa">
@@ -92,7 +109,7 @@ const MembersSettingsPage = () => {
                                 <span className="text-[1.2rem] md:text-[2.4rem] font-medium text-black-100">Phone Number</span>
                             </div>
                             {/* value */}
-                            <p className="font-medium overflow-ellipsis overflow-hidden text-black-100 text-[1.2rem] md:text-[2.4rem]">1234567890</p>
+                            <p className="font-medium overflow-ellipsis overflow-hidden text-black-100 text-[1.2rem] md:text-[2.4rem]">{userProfile? userProfile.phone : '...'}</p>
                         </div>
                         {/* Gym plan */}
                         <div className="py-[1.5rem] overflow-hidden gap-[2rem] rounded-[0.5rem] px-[1.8rem] md:py-[3rem] md:px-[4rem] flex w-full items-center justify-between bg-gray-fa">
@@ -105,7 +122,7 @@ const MembersSettingsPage = () => {
                                 <span className="text-[1.2rem] md:text-[2.4rem] font-medium text-black-100">Gym Plan</span>
                             </div>
                             {/* value */}
-                            <p className="font-medium overflow-ellipsis overflow-hidden text-black-100 text-[1.2rem] md:text-[2.4rem]">Classical (N22000.00 - 1 month)</p>
+                            <p className="font-medium overflow-ellipsis overflow-hidden text-black-100 text-[1.2rem] md:text-[2.4rem]">{userProfile? userProfile.plan : '...'}</p>
                         </div>
                         {/* Tier */}
                         <div className="py-[1.5rem] overflow-hidden gap-[2rem] rounded-[0.5rem] px-[1.8rem] md:py-[3rem] md:px-[4rem] flex w-full items-center justify-between bg-gray-fa">
@@ -118,7 +135,7 @@ const MembersSettingsPage = () => {
                                 <span className="text-[1.2rem] md:text-[2.4rem] font-medium text-black-100">Tier</span>
                             </div>
                             {/* value */}
-                            <p className="font-medium overflow-ellipsis overflow-hidden text-black-100 text-[1.2rem] md:text-[2.4rem]">Intermediate</p>
+                            <p className="font-medium overflow-ellipsis overflow-hidden text-black-100 text-[1.2rem] md:text-[2.4rem]">{userProfile? userProfile.tier : '...'}</p>
                         </div>
                     </div>
                 </div>

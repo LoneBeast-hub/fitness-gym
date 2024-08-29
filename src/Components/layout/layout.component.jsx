@@ -26,7 +26,7 @@ import MembersEditProfilePage from '../../pages/members_edit_profile/members_edi
 const Layout = () => {
     const membersDashboardRoute = '/members_dashboard';
     const adminDashboardRoute = '/admin_dashboard';
-    const {contextState, setContextState, updateSessionStorage} = useContext(MyContext);
+    const {contextState, setContextState} = useContext(MyContext);
     const location = useLocation();
     const [isUserRegistered, setIsUserRegistered] = useState(false);
     const navigate = useNavigate();

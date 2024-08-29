@@ -139,32 +139,6 @@ function App() {
         ]
     });
 
-    // State to track sessionStorage values
-    const [userId, setUserId] = useState(sessionStorage.getItem('userId') || null);
-    const [accessToken, setAccessToken] = useState(sessionStorage.getItem('accessToken') || null);
-
-    // Custom function to update sessionStorage and state
-    const updateSessionStorage = (key, value) => {
-        sessionStorage.setItem(key, value);
-        if (key === 'userId') setUserId(value);
-        if (key === 'accessToken') setAccessToken(value);
-    };
-
-    // useEffect to update currentUser when userId or accessToken changes
-    useEffect(() => {
-        if (userId && accessToken) {
-            setContextState(prevState => ({
-                ...prevState,
-                currentUser: { userId, accessToken }
-            }));
-        } else {
-            setContextState(prevState => ({
-                ...prevState,
-                currentUser: null
-            }));
-        }
-    }, [userId, accessToken]);
-
     const [loading, setLoading] = useState(false);
     useEffect(() => {
         setLoading(true);
@@ -177,7 +151,7 @@ function App() {
     const membersDashboardRoute = '/members_dashboard';
     const adminDashboardRoute = '/admin_dashboard';
     return (
-        <MyContext.Provider value={{ contextState, setContextState, updateSessionStorage }}>
+        <MyContext.Provider value={{ contextState, setContextState }}>
             {
                 location.pathname.startsWith(`${membersDashboardRoute}`) || location.pathname.startsWith(`${adminDashboardRoute}`) ?
                     <>

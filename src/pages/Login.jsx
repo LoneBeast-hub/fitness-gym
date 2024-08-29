@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { MyContext } from '../App';
 
 const Login = () => {
-  const { updateSessionStorage, contextState, setContextState } = useContext(MyContext);
+  const { contextState, setContextState } = useContext(MyContext);
   const [passwordEye, setPasswordEye] = useState(false);
   const navigate = useNavigate();
   const membersDashboardRoute = '/members_dashboard';
@@ -40,8 +40,8 @@ const Login = () => {
   
       if (response.response === true) {
         // save session
-        updateSessionStorage('userId', response.userid);
-        updateSessionStorage('accessToken', response.accessToken);
+        sessionStorage.setItem('userId', response.userid);
+        sessionStorage.setItem('accessToken', response.accessToken);
   
         // Update context state with the current user information
         setContextState(prevState => ({
@@ -67,7 +67,10 @@ const Login = () => {
         });
   
         const userProfileResponse = await userProfileResult.json();
-        console.log(userProfileResponse)
+        console.log(userProfileResponse);
+        // store user profile in session storage
+        sessionStorage.setItem('userProfile', JSON.stringify(userProfileResponse.userprofile));
+        sessionStorage.setItem('userTier', userProfileResponse.userprofile.tier)
   
         // check if userId in app matches user id in DB
         if (response.userid === userProfileResponse.userprofile.userid) {
