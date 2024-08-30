@@ -82,7 +82,8 @@ const MembersEditProfilePage = () => {
                     'fullname': fullName,
                     'email': email,
                     'username': username,
-                    'tier': tier
+                    'tier': tier,
+                    'phone': phone
                 }),
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
