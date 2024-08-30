@@ -12,6 +12,7 @@ import TodoAddModal from "./Components/todo_add_modal/todo_add_modal.component";
 import TodoEditModal from "./Components/todo_edit_modal/todo_edit_modal.component";
 import ConfirmPostNotificationModal from "./Components/confirm_post_notification_modal/confirm_post_notification_modal.component";
 import SuccessModal from "./Components/success_modal/succes_modal.component";
+import LoadingModal from "./Components/loading_modal/loading_modal.component";
 
 export const MyContext = createContext()
 
@@ -35,6 +36,8 @@ function App() {
         currentTodoData: null,
         todoIdToDelete: '',
         memberIdToDelete: '',
+        showLoadingModal: false,
+        loadingModalMessage: '',
         filters: {
           search: '',
           fromDate: '',
@@ -164,6 +167,8 @@ function App() {
                         {contextState.showTodoEditModal ? <TodoEditModal /> : ''}
                         {/* Success Modal */}
                         {contextState.showSuccessModal ? <SuccessModal successMsg={contextState.successMessage} /> : ''}
+                        {/* Loading Modal */}
+                        {contextState.showLoadingModal ? <LoadingModal successMsg={contextState.loadingModalMessage} /> : ''}
                     </>
                     :
                     <div className="App">

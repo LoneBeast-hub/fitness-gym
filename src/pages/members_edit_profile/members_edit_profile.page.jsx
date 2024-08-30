@@ -14,7 +14,7 @@ import { useEffect, useState, useContext } from "react";
 import { MyContext } from "../../App";
 
 const MembersEditProfilePage = () => {
-    const {contextState, setContextState} = useContext(MyContext);
+    const {setContextState} = useContext(MyContext);
     const membersDashboardRoute = '/members_dashboard';
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
@@ -44,6 +44,13 @@ const MembersEditProfilePage = () => {
 
     const handleUserProfileUpdate = async (e) => {
         e.preventDefault();
+
+        // display updating indicator
+        setContextState((prevValues) => ({
+            ...prevValues,
+            loadingModalMessage: 'Updating Profile...',
+            showLoadingModal: true
+        }))
 
         try {
             // get data from storage
@@ -112,8 +119,15 @@ const MembersEditProfilePage = () => {
                     sessionStorage.setItem('userProfile', JSON.stringify(userProfileResponse.userprofile));
                     sessionStorage.setItem('userTier', userProfileResponse.userprofile.tier)
 
+                    // stop displaying updating indicator
+                    setContextState((prevValues) => ({
+                        ...prevValues,
+                        loadingModalMessage: '',
+                        showLoadingModal: false
+                    }))
+
                     // reload page
-                    window.location.reload();
+                    // window.location.reload();
 
                     setContextState((prevValues) => ({
                         ...prevValues,
@@ -121,18 +135,46 @@ const MembersEditProfilePage = () => {
                         showSuccessModal: true
                     }))
                 } else {
+                    // stop displaying updating indicator
+                    setContextState((prevValues) => ({
+                        ...prevValues,
+                        loadingModalMessage: '',
+                        showLoadingModal: false
+                    }))
                     alert('Error Updating Profile, try again!')
                 }
             } else {
+                // stop displaying updating indicator
+                setContextState((prevValues) => ({
+                    ...prevValues,
+                    loadingModalMessage: '',
+                    showLoadingModal: false
+                }))
                 alert('You do not have Permission!')
             }
         } catch (error) {
             console.error("Error:", error);
+
+            // stop displaying updating indicator in case of error
+            setContextState((prevValues) => ({
+                ...prevValues,
+                loadingModalMessage: '',
+                showLoadingModal: false
+            }));
+
+            alert(error.message);
         }
     }
 
     const handlePasswordChange = async (e) => {
         e.preventDefault();
+
+        // display updating password
+        setContextState((prevValues) => ({
+            ...prevValues,
+            loadingModalMessage: 'Updating Password...',
+            showLoadingModal: true
+        }))
 
         try {
             // get data from storage
@@ -175,6 +217,13 @@ const MembersEditProfilePage = () => {
                 const requestPasswordChangeResult = await requestPasswordChange.json();
                 console.log(requestPasswordChangeResult);
 
+                // stop displaying updating indicator
+                setContextState((prevValues) => ({
+                    ...prevValues,
+                    loadingModalMessage: '',
+                    showLoadingModal: false
+                }))
+
                 // print success message after successful Password Change
                 if(requestPasswordChangeResult.response) {
                     setContextState((prevValues) => ({
@@ -183,13 +232,34 @@ const MembersEditProfilePage = () => {
                         showSuccessModal: true
                     }))
                 } else {
+                    // stop displaying updating indicator
+                    setContextState((prevValues) => ({
+                        ...prevValues,
+                        loadingModalMessage: '',
+                        showLoadingModal: false
+                    }))
                     alert('Error changing password, try again!')
                 }
             } else {
+                // stop displaying updating indicator
+                setContextState((prevValues) => ({
+                    ...prevValues,
+                    loadingModalMessage: '',
+                    showLoadingModal: false
+                }))
                 alert('You do not have Permission!')
             }
         } catch (error) {
             console.error("Error:", error);
+
+            // stop displaying updating indicator in case of error
+            setContextState((prevValues) => ({
+                ...prevValues,
+                loadingModalMessage: '',
+                showLoadingModal: false
+            }));
+
+            alert(error.message);
         }
     }
 
