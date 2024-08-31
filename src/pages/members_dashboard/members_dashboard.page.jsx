@@ -8,13 +8,73 @@ import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import MembersToDoList from "../../Components/members_to_do_list/members_to_do_list.component";
 import MembersChartsContainer from "../../Components/members_charts_container/members_charts_container.component";
 // hooks
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // css
 import '../../lodstyles.css';
 
 const MembersDashboardPage = () => {
     const [showCount, setShowCount] = useState(3);
     const membersDashboardRoute = '/members_dashboard';
+
+    useEffect(() => {
+        const getDashboard = async () => {
+            try {
+                // check if userId exists in sessionStorage
+                const userId = sessionStorage.getItem('userId');
+                const accessToken = sessionStorage.getItem('accessToken');
+
+                if (userId) {
+                    // get user profile
+                    const userProfileResult = await fetch("https://goodnessgfc.com.ng/gymserver/customer/updateprofile/getuserprofile.php", {
+                        method: 'POST',
+                        body: JSON.stringify({ 'userid': userId }),
+                        headers: {
+                            "Content-Type": "application/json; charset=utf-8",
+                            "Accesstoken": accessToken
+                        }
+                    });
+    
+                    if (!userProfileResult.ok) {
+                        // handle non-2xx HTTP responses
+                        throw new Error('Failed to fetch user profile');
+                    }
+    
+                    const userProfileResponse = await userProfileResult.json();
+    
+                    // check if userId in app matches user id in DB
+                    if (userId === userProfileResponse.userprofile.userid) {
+                        // get dashboard
+                        const userDashboardResult = await fetch("https://goodnessgfc.com.ng/gymserver/customer/dashboard.php", {
+                            method: 'POST',
+                            body: JSON.stringify({ 'userid': userId }),
+                            headers: {
+                                "Content-Type": "application/json; charset=utf-8",
+                                "Accesstoken": accessToken
+                            }
+                        });
+
+                        if (!userDashboardResult.ok) {
+                            // handle non-2xx HTTP responses
+                            throw new Error('Failed to fetch Dashboard');
+                        }
+
+                        const userDashboardResponse = await userDashboardResult.json();
+                        console.log(userDashboardResponse)
+                    } else {
+                        console.log('Error: Cannot load Dashboard, Reason: User cannot be validated!');
+                    }
+                } else {
+                    console.log('Error: Cannot load Dashboard, Reason: User cannot be validated!');
+                }
+
+            } catch(error) {
+                console.error("Error:", error);
+            }
+        }
+
+        getDashboard();
+    }, [])
+
     return(
         <div id="lodComponent">
             {/* header */}

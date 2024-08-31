@@ -1,7 +1,7 @@
 // components
 import DashboardHeader from "../../Components/dashboard_header/dashboard_header.component";
 // use context
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { MyContext } from "../../App";
 import MembersToDoList from "../../Components/members_to_do_list/members_to_do_list.component";
 import CustomButton from "../../Components/custom_button/custom_button.component";
@@ -12,6 +12,66 @@ import '../../lodstyles.css';
 const MembersToDoPage = () => {
     const { contextState, setContextState } = useContext(MyContext);
     const [selectedFilters, setSelectedFilters] = useState([]);
+
+    useEffect(() => {
+        const getToDoListData = async () => {
+            try {
+                // check if userId exists in sessionStorage
+                const userId = sessionStorage.getItem('userId');
+                const accessToken = sessionStorage.getItem('accessToken');
+
+                if (userId) {
+                    // get user profile
+                    const userProfileResult = await fetch("https://goodnessgfc.com.ng/gymserver/customer/updateprofile/getuserprofile.php", {
+                        method: 'POST',
+                        body: JSON.stringify({ 'userid': userId }),
+                        headers: {
+                            "Content-Type": "application/json; charset=utf-8",
+                            "Accesstoken": accessToken
+                        }
+                    });
+
+                    if (!userProfileResult.ok) {
+                        // handle non-2xx HTTP responses
+                        throw new Error('Failed to fetch user profile');
+                    }
+
+                    const userProfileResponse = await userProfileResult.json();
+
+                    // check if userId in app matches user id in DB
+                    if (userId === userProfileResponse.userprofile.userid) {
+                        // get todo
+                        const userTodoResult = await fetch("https://goodnessgfc.com.ng/gymserver/customer/todo/get_todo.php", {
+                            method: 'POST',
+                            body: JSON.stringify({ 'userid': userId }),
+                            headers: {
+                                "Content-Type": "application/json; charset=utf-8",
+                                "Accesstoken": accessToken
+                            }
+                        });
+
+                        if (!userTodoResult.ok) {
+                            // handle non-2xx HTTP responses
+                            throw new Error('Failed to fetch Todo Data');
+                        }
+
+                        const userTodoResponse = await userTodoResult.json();
+                        console.log(userTodoResponse)
+                        // save todo data to storage
+                        sessionStorage.setItem('toDoListData', JSON.stringify(userTodoResponse.todo));
+                    } else {
+                        console.log('Error: Cannot load Todo data, Reason: User cannot be validated!');
+                    }
+                } else {
+                    console.log('Error: Cannot load Todo data, Reason: User cannot be validated!');
+                }
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        }
+
+        getToDoListData();
+    }, []);
 
     const handleFilterClick = (filter) => {
         const newSelectedFilters = [...selectedFilters]; // Copy of selected filters

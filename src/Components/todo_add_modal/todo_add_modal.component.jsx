@@ -11,52 +11,117 @@ const TodoAddModal = () => {
     const [taskDescription, setTaskDescription] = useState('');
     const [dueDate, setDueDate] = useState('');
     const [reminder, setReminder] = useState('');
-
-    function generateRandomId() {
-        // Generates a random 8-character alphanumeric string
-        const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        let result = '';
-        for (let i = 0; i < 8; i++) {
-            result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
-        }
-        return result;
-    }
     
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
 
-        // Create a new to-do object
-        const newToDo = {
-            id: generateRandomId(),
-            description: taskDescription,
-            progress: 10,
-            due_date: dueDate,
-            reminder: reminder
-        };
+        // display updating indicator
+        setContextState((prevValues) => ({
+            ...prevValues,
+            loadingModalMessage: 'Adding Todo...',
+            showLoadingModal: true
+        }))
 
         // code to handle submit will go here
-        setContextState((prevValues) => ({
-            ...prevValues,
-            toDoListData: [...prevValues.toDoListData, newToDo]
-        }))
+        try {
+            // check if userId exists in sessionStorage
+            const userId = sessionStorage.getItem('userId');
+            const accessToken = sessionStorage.getItem('accessToken');
 
-        // after submission, clear form
-        setTaskDescription('');
-        setDueDate('');
-        setReminder('');
+            if (userId) {
+                // get user profile
+                const userProfileResult = await fetch("https://goodnessgfc.com.ng/gymserver/customer/updateprofile/getuserprofile.php", {
+                    method: 'POST',
+                    body: JSON.stringify({ 'userid': userId }),
+                    headers: {
+                        "Content-Type": "application/json; charset=utf-8",
+                        "Accesstoken": accessToken
+                    }
+                });
 
-        // then, set success message
-        setContextState((prevValues) => ({
-            ...prevValues,
-            successMessage: 'Item Successfully Added!'
-        }))
+                if (!userProfileResult.ok) {
+                    // handle non-2xx HTTP responses
+                    throw new Error('Failed to fetch user profile');
+                }
 
-        // then, show success message
-        setContextState((prevValues) => ({
-            ...prevValues,
-            showSuccessModal: true,
-            showTodoAddModal: false
-        }))
+                const userProfileResponse = await userProfileResult.json();
+
+                // check if userId in app matches user id in DB
+                if (userId === userProfileResponse.userprofile.userid) {
+                    // add todo
+                    const userTodoAddResult = await fetch("https://goodnessgfc.com.ng/gymserver/customer/todo/add_todo.php", {
+                        method: 'POST',
+                        body: JSON.stringify({ 
+                            'userid': userId,
+                            'task_desc': taskDescription,
+                            'due_date': dueDate,
+                            'due_time': reminder
+                        }),
+                        headers: {
+                            "Content-Type": "application/json; charset=utf-8",
+                            "Accesstoken": accessToken
+                        }
+                    });
+
+                    if (!userTodoAddResult.ok) {
+                        // handle non-2xx HTTP responses
+                        throw new Error('Failed to Add Todo');
+                    }
+
+                    const userTodoAddResponse = await userTodoAddResult.json();
+                    console.log(userTodoAddResponse)
+                } else {
+                    // stop displaying updating indicator
+                    setContextState((prevValues) => ({
+                        ...prevValues,
+                        loadingModalMessage: '',
+                        showLoadingModal: false
+                    }))
+                    console.log('Error: Cannot Add Todo data, Reason: User cannot be validated!');
+                }
+            } else {
+                // stop displaying updating indicator
+                setContextState((prevValues) => ({
+                    ...prevValues,
+                    loadingModalMessage: '',
+                    showLoadingModal: false
+                }))
+                console.log('Error: Cannot Add Todo data, Reason: User cannot be validated!');
+            }
+
+            // after submission, clear form
+            setTaskDescription('');
+            setDueDate('');
+            setReminder('');
+
+            // stop displaying updating indicator
+            setContextState((prevValues) => ({
+                ...prevValues,
+                loadingModalMessage: '',
+                showLoadingModal: false
+            }))
+
+            // then, set success message
+            setContextState((prevValues) => ({
+                ...prevValues,
+                successMessage: 'Item Successfully Added!'
+            }))
+
+            // then, show success message
+            setContextState((prevValues) => ({
+                ...prevValues,
+                showSuccessModal: true,
+                showTodoAddModal: false
+            }))
+        } catch(error) {
+            // stop displaying updating indicator
+            setContextState((prevValues) => ({
+                ...prevValues,
+                loadingModalMessage: '',
+                showLoadingModal: false
+            }))
+            console.error("Error:", error);
+        }
     }
 
     return(

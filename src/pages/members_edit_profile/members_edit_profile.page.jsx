@@ -95,7 +95,6 @@ const MembersEditProfilePage = () => {
                 const requestProfileUpdateResult = await requestProfileUpdate.json();
                 console.log(requestProfileUpdateResult);
                 
-                // print success message after successful profile update
                 if(requestProfileUpdateResult.response) {
                     // after successfull profile update, request for the new profile and update session storage
 
@@ -130,6 +129,7 @@ const MembersEditProfilePage = () => {
                     // reload page
                     // window.location.reload();
 
+                    // print success message after successful profile update
                     setContextState((prevValues) => ({
                         ...prevValues,
                         successMessage: 'Profile Successfully Updated!',
