@@ -30,7 +30,7 @@ const AdminDashboardRoutes = () => {
                 <LuUsers2 className="text-[2.2rem]" />
                 <span className="text-[1.8rem]">Manage Members</span>
             </NavLink>
-            <NavLink
+            {/* <NavLink
                 to={`${adminDashboardRoute}/announcement`}
                 className={({ isActive }) => isActive && location.pathname === `${adminDashboardRoute}/announcement` ? 'active flex text-black-2 gap-[1rem] rounded-[0.5rem] w-full font-medium p-[2rem]' : 'flex text-black-2 gap-[1rem] rounded-[0.5rem] w-full font-medium p-[2rem]'}
             >
@@ -43,7 +43,7 @@ const AdminDashboardRoutes = () => {
             >
                 <IoSettingsOutline className="text-[2.2rem]" />
                 <span className="text-[1.8rem]">Settings</span>
-            </NavLink>
+            </NavLink> */}
         </div>
     )
 }

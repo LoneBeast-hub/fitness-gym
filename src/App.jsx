@@ -13,6 +13,11 @@ import TodoEditModal from "./Components/todo_edit_modal/todo_edit_modal.componen
 import ConfirmPostNotificationModal from "./Components/confirm_post_notification_modal/confirm_post_notification_modal.component";
 import SuccessModal from "./Components/success_modal/succes_modal.component";
 import LoadingModal from "./Components/loading_modal/loading_modal.component";
+import AdminLogin from "./pages/admin_login/admin_login.page";
+import MemberDetailsModal from "./Components/member_details_modal/member_details_modal.component";
+import AdminMemberAddModal from "./Components/admin_member_add_modal/admin_member_add_modal.component";
+import DeleteMemberModal from "./Components/delete_member_modal/delete_member_modal.component";
+import DisableMemberModal from "./Components/disable_member_modal/disable_member_modal.component";
 
 export const MyContext = createContext()
 
@@ -44,6 +49,7 @@ function App() {
           toDate: '',
           status: 'All',
         },
+        memberIdToDisable: '',
         toDoListData: [
           {
             id: 1,
@@ -88,58 +94,7 @@ function App() {
             reminder: 'A day before'
           }
         ],
-        membersData: [
-          {
-            id: 1,
-            name: 'John Doe',
-            username: 'john_doe',
-            phone: '0123456789',
-            email: 'john_doe@gmail.com',
-            status: true,
-            date_of_registration: '2023-10-06',
-            plan: 'Classical - N22k per month'
-          },
-          {
-            id: 2,
-            name: 'Steve Doe',
-            username: 'steve_doe',
-            phone: '0987654321',
-            email: 'steve_doe@gmail.com',
-            status: false,
-            date_of_registration: '2024-03-06',
-            plan: 'Classical - N22k per month'
-          },
-          {
-            id: 3,
-            name: 'Albert',
-            username: 'king_albert',
-            phone: '0987654321',
-            email: 'king.albert@gmail.com',
-            status: false,
-            date_of_registration: '2023-05-09',
-            plan: 'Classical - N22k per month'
-          },
-          {
-            id: 4,
-            name: 'Luffytaro',
-            username: 'luffy_kun',
-            phone: '0987654321',
-            email: 'luffy@gmail.com',
-            status: true,
-            date_of_registration: '2023-12-09',
-            plan: 'Classical - N22k per month'
-          },
-          {
-            id: 5,
-            name: 'Roronoa Zoro',
-            username: 'zorojuro',
-            phone: '0987654321',
-            email: 'santoryou@gmail.com',
-            status: true,
-            date_of_registration: '2024-6-09',
-            plan: 'Classical - N22k per month'
-          }
-        ]
+        membersData: []
     });
 
     const [loading, setLoading] = useState(false);
@@ -169,6 +124,14 @@ function App() {
                         {contextState.showSuccessModal ? <SuccessModal successMsg={contextState.successMessage} /> : ''}
                         {/* Loading Modal */}
                         {contextState.showLoadingModal ? <LoadingModal successMsg={contextState.loadingModalMessage} /> : ''}
+                        {/* view member details Modal */}
+                        {contextState.showMemberDetailsModal? <MemberDetailsModal showMemberDetailsModal={contextState.showMemberDetailsModal} /> : ''}
+                        {/* Add member Modal */}
+                        {contextState.showMemberAddModal? <AdminMemberAddModal /> : ''}
+                        {/* Delete member Modal */}
+                        {contextState.showDeleteMemberModal? <DeleteMemberModal /> : ''}
+                        {/* Disable member Modal */}
+                        {contextState.showDisableMemberModal? <DisableMemberModal /> : ''}
                     </>
                     :
                     <div className="App">
@@ -189,6 +152,7 @@ function App() {
                                     <Route path="/subscription/:id" exact element={<Subscription />} />
                                     <Route path="/login" exact element={<Login />} />
                                     <Route path="/signup" exact element={<Signup />} />
+                                    <Route path="/admin_auth" exact element={<AdminLogin />} />
                                 </Routes>
                             )
                         }

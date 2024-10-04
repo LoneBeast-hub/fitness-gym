@@ -1,0 +1,77 @@
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.pagination li {
+    margin: 0 5px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.pagination li a {
+    display: flex;
+    padding: 0.7rem 1.2rem;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.6rem;
+    color: #646464;
+}
+
+.pagination li.active a {
+    background-color: #FF6600;
+    max-height: fit-content !important;
+    color: white;
+}
+
+.pagination li.disabled a {
+    cursor: not-allowed;
+}
+
+/* Custom styles for previous and next buttons */
+.pagination__prev a,
+.pagination__next a {
+    color: #646464 !important;
+    font-size: 4rem !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+@media screen and (max-width: 1280px) {
+    .pagination li a {
+        font-size: 1.2rem;
+    }
+    .pagination__prev a,
+    .pagination__next a {
+        font-size: 2.5rem !important;
+    }
+}
+
+/* DateRangePickerStyles.css */
+.rdrCalendarWrapper {
+    max-width: 280px;
+}
+
+.rdrMonth {
+    width: 100% !important;
+}
+
+.custom-date-range-picker * {
+    font-size: 1.4rem; /* Change this value to your desired font size */
+}
+
+.custom-date-range-picker .rdrDayNumber span, 
+.custom-date-range-picker .rdrMonthAndYearPickers select, 
+.custom-date-range-picker .rdrWeekDays span, 
+.custom-date-range-picker .rdrDayNumber {
+    font-size: 1.4rem; /* Ensure date numbers, month/year pickers, week days, etc., have the desired font size */
+}
+
+.rdrDefinedRangesWrapper {
+    display: none;
+}
